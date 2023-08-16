@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Diabetes Checker Website</title>
+  <style>
+    body {
+      background-image: url("{% static 'diabetes.jpg' %}");
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      
+      
+      /* background: url("{% static 'diabetes.jpg' %}") no-repeat center center fixed;
+      background-image: "{% static 'diabetes.jpg' %}"; */
+      background-size: cover;
+    }
+
+    .form-container {
+      position: relative;
+     
+        background-image: linear-gradient(90deg, #05b37c, #1bd039);
+      width: 300px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+    }
+
+    .form-container input[type="number"] {
+      width: 94%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+  
+    }
+
+    .form-container input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-container button[type="submit"] {
+      margin-top: 3px;
+      width: 100%;
+      padding: 10px;
+      background-color: #00cea8;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result{
+      position: relative;
+      left: 13px;
+      color: #39006c;
+
+    }
+    .container{
+
+      display: flex;
+
+    }
+    .Header{
+      position: relative;
+      left: 38px;
+      color: #760454;
+    }
+    #letterContainer{
+      position: relative;
+      left: 114px;
+      top: 9px;
+      color: rgb(16, 8, 244);
+      letter-spacing: 1.cm;
+
+    }
+  </style>
+</head>
+<body>
+  <div class="conatiner">
+
+
+    <!-- {% for message, input in messages %}
+    <p>{{ message }}</p>
+     <input type="text" value="{{ input }}">
+  {% endfor %}
+   -->
+
+
+  <div class="result">
+    {% if result1 %} 
+    <h1 class="result"> {{result1}}</h1>
+    {% endif %}
+  </div>
+  <div class="form-container">
+  
+    <h2 class="Header">Check Your Diabetes</h2>                                                                                                                            
+    <form action="" method="POST">
+        {% csrf_token %}
+      <input type="number" step="any"  name="Pregnancies" placeholder="Pregnancies" required value="{{value1}}" >
+      <input type="number" step="any"  name="Glucose" placeholder="Glucose" required value="{{value2}}">
+      <input type="number" step="any"  name="BloodPressure" placeholder="BloodPressure" required value="{{value3}}" >
+      <input type="number" step="any"  name="SkinThickness" placeholder="SkinThickness" required value="{{value4}}">
+      <input type="number" step="any"  name="Insulin" placeholder="Insulin" required value="{{value5}}">
+      <input type="number" step="any"  name="BMI" placeholder="BMI" required value="{{value6}}">
+      <input type="number" step="any"  name="DiabetesPedigreeFunction" placeholder="DiabetesPedigreeFunction" required value="{{value7}}">
+      <input type="number" step="any"  name="Age" placeholder="Age" required value="{{value8}}">
+      <input type="submit" step="any"  value="Submit">
+    </form>
+    
+    <form action="{% url 'invoke_function' %}" method="post">
+        {% csrf_token %}
+        <button onclick="startDisplay()" type="submit">Speak</button>
+    </form>
+
+
+
+
+<!-- Add the following HTML code in your Home.html template to display the letters -->
+<div id="letterContainer"></div>
+
+<!-- Add a button to trigger the letter display -->
+<!-- <button onclick="startDisplay()">Start</button> -->
+
+<script>
+    // Delay function to pause execution for a specified time (in milliseconds)
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Function to display letters after a delay of 3 seconds
+    async function displayLetters() {
+        var word = "12345678";
+        var letters = word.split("");
+        var container = document.getElementById("letterContainer");
+
+        for (var i = 0; i < letters.length; i++) {
+            container.innerHTML += letters[i];
+            await delay(5900);  // Delay for 3 seconds
+        }
+    }
+
+    // Function to start displaying the letters
+    function startDisplay() {
+        displayLetters();
+    }
+</script>
+  </div>
+</div>
+ 
+
+    
+
+
